@@ -17,11 +17,13 @@ public class Library {
 	// DONE: implement functionality of Member class
 	
 	private ArrayList<Book> availableBooks;
-	private HashMap<Member, ArrayList<Member>> memberBorrowedBooks;
+	private ArrayList<Member> members;
+	private HashMap<Member, ArrayList<Book>> memberBorrowedBooks;
 	
-	Library(ArrayList<Book> availableBooks, HashMap<Member, ArrayList<Member>> memberBorrowedBooks){
+	Library(ArrayList<Book> availableBooks, ArrayList<Member> members){
 		this.availableBooks = availableBooks;
-		this.memberBorrowedBooks = memberBorrowedBooks;
+		this.members = members;
+		//this.memberBorrowedBooks = memberBorrowedBooks;
 	}
 	
 	// Adds a book to the library catalog
