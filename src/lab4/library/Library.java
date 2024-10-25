@@ -1,6 +1,7 @@
 package lab4.library;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Library {
 	
@@ -13,24 +14,24 @@ public class Library {
 	// private catalog (list of Book) 
 	// private members (list of Members)
 
-	// TODO: implement functionality of Member class
+	// DONE: implement functionality of Member class
 	
 	private ArrayList<Book> availableBooks;
-	private ArrayList<Member> memberBorrowedBooks;
+	private HashMap<Member, ArrayList<Member>> memberBorrowedBooks;
 	
-	Library(ArrayList<Book> availableBooks, ArrayList<Member> memberBorrowedBooks){
+	Library(ArrayList<Book> availableBooks, HashMap<Member, ArrayList<Member>> memberBorrowedBooks){
 		this.availableBooks = availableBooks;
 		this.memberBorrowedBooks = memberBorrowedBooks;
 	}
 	
 	// Adds a book to the library catalog
-	 public void addBook(String bookName) {
+	 public void addBook(Book bookName) {
 	     availableBooks.add(bookName);
 	     System.out.println(bookName + " has been added to the catalog.");
 	 }
 
 	 // Adds a new member to the library (without a separate class)
-	 public void addMember(String memberName) {
+	 public void addMember(Member memberName) {
 	     if (!memberBorrowedBooks.containsKey(memberName)) {
 	         memberBorrowedBooks.put(memberName, new ArrayList<>());
 	         System.out.println("Member " + memberName + " has been added.");
