@@ -15,16 +15,28 @@ public class Library {
 
 	// TODO: implement functionality of Member class
 	
-	private ArrayList<Book> catalog;
-	private ArrayList<Member> members;
+	private ArrayList<Book> availableBooks;
+	private ArrayList<Member> memberBorrowedBooks;
 	
-	Library(ArrayList<Book> catalog, ArrayList<Member> members){
-		this.catalog = catalog;
-		this.members = members;
+	Library(ArrayList<Book> availableBooks, ArrayList<Member> memberBorrowedBooks){
+		this.availableBooks = availableBooks;
+		this.memberBorrowedBooks = memberBorrowedBooks;
 	}
 	
-	public void manageBookCatalog() {
-		
-	}
+	// Adds a book to the library catalog
+	 public void addBook(String bookName) {
+	     availableBooks.add(bookName);
+	     System.out.println(bookName + " has been added to the catalog.");
+	 }
+
+	 // Adds a new member to the library (without a separate class)
+	 public void addMember(String memberName) {
+	     if (!memberBorrowedBooks.containsKey(memberName)) {
+	         memberBorrowedBooks.put(memberName, new ArrayList<>());
+	         System.out.println("Member " + memberName + " has been added.");
+	     } else {
+	         System.out.println("Member " + memberName + " already exists.");
+	     }
+	 }
 
 }
