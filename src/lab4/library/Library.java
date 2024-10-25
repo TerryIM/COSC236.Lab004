@@ -1,5 +1,7 @@
 package lab4.library;
 
+import java.util.ArrayList;
+
 public class Library {
 	
 	//  GRASP Principles: Creator, Controller
@@ -12,5 +14,17 @@ public class Library {
 	// private members (list of Members)
 
 	// TODO: implement functionality of Member class
+	
+	private ArrayList<Book> catalog;
+	private ArrayList<Member> members;
+	
+	Library(ArrayList<Book> catalog, ArrayList<Member> members){
+		this.catalog = catalog;
+		this.members = members;
+	}
+	
+	public void manageBookCatalog() {
+		
+	}
 
 }
