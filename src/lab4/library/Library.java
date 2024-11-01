@@ -27,18 +27,38 @@ public class Library {
 	}
 	
 	// Adds a book to the library catalog
-	 public void addBook(Book bookName) {
-	     availableBooks.add(bookName);
+	 public void addBook(String bookName) {
+		 Book b = new Book(bookName);
+	     availableBooks.add(b);
 	     System.out.println(bookName + " has been added to the catalog.");
 	 }
 
 	 // Adds a new member to the library (without a separate class)
-	 public void addMember(Member memberName) {
+	 public void addMember(String memberName) {
 	     if (!memberBorrowedBooks.containsKey(memberName)) {
-	         memberBorrowedBooks.put(memberName, new ArrayList<>());
+	    	 Member m = new Member(memberName);
+	         memberBorrowedBooks.put(m, new ArrayList<Book>());
 	         System.out.println("Member " + memberName + " has been added.");
 	     } else {
 	         System.out.println("Member " + memberName + " already exists.");
+	     }
+	 }
+	 
+	 // Borrow a book from the library
+	 public void borrowBook(String bookName, String memberName) {
+	     if (!memberBorrowedBooks.containsKey(memberName)) {
+	         System.out.println("Member " + memberName + " not found.");
+	         return;
+	     }
+
+	     if (availableBooks.contains(bookName)) {
+	         availableBooks.remove(bookName);
+	         memberBorrowedBooks.get(memberName).add(availableBooks.get(availableBooks.indexOf(bookName)));
+	         Member m = new Member();
+	         
+	         System.out.println(memberName + " has successfully borrowed " + bookName);
+	     } else {
+	         System.out.println(bookName + " is either already borrowed or not available.");
 	     }
 	 }
 
