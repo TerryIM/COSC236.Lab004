@@ -14,7 +14,7 @@ public class Library {
 	// private catalog (list of Book) 
 	// private members (list of Members)
 
-	// DONE: implement functionality of Member class
+	// DONE: imple ment functionality of Member class
 	
 	private List<Book> availableBooks;
 	private List<Member> members;
