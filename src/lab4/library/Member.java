@@ -8,35 +8,41 @@ public class Member {
 	private String memberID;
 	private String name;
 	private List<Book> borrowedBooks;
-	
-	public void member(String memberID, String name){
-		this.memberID = memberID;
+
+	public void member(String name) {
 		this.name = name;
+		this.memberID = createMemberID();
 	}
+	
 	// TODO: implement functionality of Member class
 	// private borrowedbBooks TODO: implement collection of borrowed books
-	 // Borrow a book from the library, add book to borrowedBooks list
-	 // Borrow a book from the library
-	 public void borrowBook(String bookName, String memberName) {
-		 Library library = new Library();
-		 
-		 //library.(getMemberBorrowedBooks()).containsKey(memberName);
-	     if (!library.(getAvailableBooks()).contains(bookName)) {
-	         System.out.println("Member " + memberName + " not found.");
-	         return;
-	     }
-	     //library.(getAvailableBooks()).contains(bookName)
-	     if (library.(getAvailableBooks()).contains(bookName))) {
-	         availableBooks.remove(bookName);
-	         memberBorrowedBooks.get(memberName).add(bookName);
-	         System.out.println(memberName + " has successfully borrowed " + bookName);
-	         borrowedBooks.add(book.setName(bookName));
-	     } else {
-	         System.out.println(bookName + " is either already borrowed or not available.");
-	     }
-	 }
+	// Borrow a book from the library, add book to borrowedBooks list
+	// Borrow a book from the library
+	public void borrowBook(String bookName, String name) {
+		Library library = library.borrowBook(bookName, name);
+		//library.borrowBook(bookName, name);
+	}
 
-	 public String getMemberID() {
+	// Return a book to the library
+	public void returnBook(String bookName, String name) {
+		Library library = library.returnBook(bookName, name);
+	}
+
+	// Add book to list once borrowed
+	public void addBorrowedBook(Book book) {
+		borrowedBooks.add(book);
+	}
+
+	// Remove book from list upon return
+	public void removeBorrowedBook(String bookName, String name) {
+		borrowedBooks.remove(bookName, name);
+	}
+	// Make random member ID
+	public int createMemberID() {
+		return (int)(Math.random() * 100000) + 1;
+	}
+
+	public String getMemberID() {
 		return memberID;
 	}
 
@@ -48,21 +54,15 @@ public class Member {
 		return borrowedBooks;
 	}
 
-	// Return a book to the library
-	 public void returnBook(String bookName, String memberName) {
-		 
-	     if (!memberBorrowedBooks.containsKey(memberName)) {
-	         System.out.println("Member " + memberName + " not found.");
-	         return;
-	     }
+	public void setMemberID(String memberID) {
+		this.memberID = memberID;
+	}
 
-	     if (memberBorrowedBooks.get(memberName).contains(bookName)) {
-	         memberBorrowedBooks.get(memberName).remove(bookName);
-	         availableBooks.add(bookName);
-	         System.out.println(memberName + " has successfully returned " + bookName);
-	     } else {
-	         System.out.println(memberName + " didn't borrow " + bookName);
-	     }
-	 }
+	public void setName(String name) {
+		this.name = name;
+	}
 
+	public String toString() {
+		return this.name;
+	}
 }
