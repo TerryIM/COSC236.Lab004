@@ -17,13 +17,15 @@ public class Library {
 	// DONE: imple ment functionality of Member class
 	
 	private List<Book> availableBooks;
-	private List<Member> members;
 	private HashMap<Member, List<Book>> memberBorrowedBooks;
 	
-	Library(List<Book> availableBooks, List<Member> members){
+	Library(){
+		
+	}
+	
+	Library(List<Book> availableBooks, Member member){
 		this.availableBooks = availableBooks;
-		this.members = members;
-		//this.memberBorrowedBooks = memberBorrowedBooks;
+		memberBorrowedBooks.put(member, List<Book>);
 	}
 	
 	// Adds a book to the library catalog
