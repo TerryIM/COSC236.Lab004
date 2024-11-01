@@ -9,7 +9,9 @@ public class Member {
 	private String name;
 	private List<Book> borrowedBooks;
 
-	public void Member(String name) {
+	Library library = new Library();
+	
+	public Member(String name) {
 		this.name = name;
 		this.memberID = createMemberID();
 	}
@@ -19,13 +21,12 @@ public class Member {
 	// Borrow a book from the library, add book to borrowedBooks list
 	// Borrow a book from the library
 	public void borrowBook(String bookName, String name) {
-		Library library = library.borrowBook(bookName, name);
-		//library.borrowBook(bookName, name);
+		library.borrowBook(bookName, name);
 	}
 
 	// Return a book to the library
 	public void returnBook(String bookName, String name) {
-		Library library = library.returnBook(bookName, name);
+		library.returnBook(bookName, name);
 	}
 
 	// Add book to list once borrowed
@@ -34,15 +35,15 @@ public class Member {
 	}
 
 	// Remove book from list upon return
-	public void removeBorrowedBook(String bookName, String name) {
-		borrowedBooks.remove(bookName, name);
+	public void removeBorrowedBook(Book book) {
+		borrowedBooks.remove(book);
 	}
 	// Make random member ID
 	public int createMemberID() {
 		return (int)(Math.random() * 100000) + 1;
 	}
 
-	public String getMemberID() {
+	public int getMemberID() {
 		return memberID;
 	}
 
@@ -54,7 +55,7 @@ public class Member {
 		return borrowedBooks;
 	}
 
-	public void setMemberID(String memberID) {
+	public void setMemberID(int memberID) {
 		this.memberID = memberID;
 	}
 
