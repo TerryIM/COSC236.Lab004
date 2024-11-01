@@ -5,11 +5,11 @@ import java.util.List;
 public class Member {
 	// GRASP Principle: Information Expert and Low Coupling
 	// Can borrow and return books.
-	private String memberID;
+	private int memberID;
 	private String name;
 	private List<Book> borrowedBooks;
 
-	public void member(String name) {
+	public void Member(String name) {
 		this.name = name;
 		this.memberID = createMemberID();
 	}
