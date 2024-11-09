@@ -1,7 +1,9 @@
 package lab4.library;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
+
+//import lab4.library.Book;
 
 public class Library {
 	
@@ -21,7 +23,9 @@ public class Library {
 	//private HashMap<Member, List<Book>> memberBorrowedBooks;
 	
 	Library(){
-		//TODO Default values for catalog and members
+		//Empty Library
+		this.catalog = new ArrayList<>();
+		this.members = new ArrayList<>();
 	}
 	
 	Library(List<Book> catalog, List<Member> members){
@@ -31,139 +35,63 @@ public class Library {
 	}
 	
 	// Adds a book to the library catalog
-	 public void addBook(String bookName) {
-		 Book b = new Book(bookName);
-	     catalog.add(b);
-	     System.out.println(bookName + " has been added to the catalog.");
+	 public void addBook(Book book) {
+		//Search for member in the library
+		 if (catalog.contains(book)) {
+			 //Member is already apart of the library
+			 System.out.println(book.getName() + " already exists.");
+		 }else {
+			 members.add(book);
+	         System.out.println(book.getName() + " has been added.");
+		 }
 	 }
 
 	 // Adds a new member to the library (without a separate class)
-	 public void addMember(String memberName) {
-		 boolean isNewMember = true;
-		 int memberID = Member.createMemberID(); //TODO Make Member's createMemberID() method static
-		 
-		 //Search for member with matching ID
-		 for (Member m : members) {
-			 if (m.getMemberID() == memberID) {
-				 //Member is already apart of the library
-				 isNewMember = false;
-				 break;
-			 }
-		 }
-		 
-		 if (isNewMember) {
-			 Member m = new Member(memberName, memberID); //TODO Allow Member's constructor accept both memberName and memberID
-	         members.add(m);
-	         System.out.println("Member " + memberName + " has been added.");
+	 public void addMember(Member member) {
+		 //Search for member in the library
+		 if (members.contains(member)) {
+			 //Member is already apart of the library
+			 System.out.println("Member " + member.getName() + " already exists.");
 		 }else {
-			 System.out.println("Member " + memberName + " already exists.");
+			 members.add(member);
+	         System.out.println("Member " + member.getName() + " has been added.");
 		 }
-		 
-//	     if (!members.contains(memberName)) {
-//	    	 Member m = new Member(memberName);
-//	         members.add(m);
-//	         System.out.println("Member " + memberName + " has been added.");
-//	     } else {
-//	         System.out.println("Member " + memberName + " already exists.");
-//	     }
 	 }
 	 
 	 // Borrow a book from the library
-	 public void borrowBook(String bookName, String memberName) {
+	 public void borrowBook(Book book, Member member) {
 		 //Check if member exists in the Library
-		 boolean isNewMember = true;
-		 boolean bookAvailable = false;
-		 Member member;
-		 Book book;
-		 for (Member m : members) {
-			 if (m.getName() == memberName) { //TODO Possibly check memberID instead? can 2 members have the same name?
-				 //Member is already apart of the library
-				 isNewMember = false;
-				 member = m;
-				 break;
-			 }
-		 }
-		 
-		 if (isNewMember) {
+		 if (!members.contains(member)) {
 			 //Member is not a registered member of the Library
-			 System.out.println("Member " + memberName + " not found.");
+			 System.out.println("Member " + member.getName() + " not found.");
 			 return;
 		 }
 		 
-		 //Check if Book is available to be borrowed
-		 for (Book b : catalog) {
-			//TODO Possibly check bookID instead? can 2 books have the same name?
-			 if (b.getName() == bookName) { //TODO Create a getter for name in the Book class 
-				 //Book is in stock
-				 bookAvailable = true;
-				 book = b;
-				 break;
-			 }
-		 }
-		 
-		 if (!bookAvailable) {
-			 //Book is not in the catalog
-			 System.out.println(bookName + " is currently not available.");
+		 if (!catalog.contains(book)) {
+			//Book is not in stock
+			 System.out.println(book.getName() + " is currently not available.");
 			 return;
 		 }
+		 
 		 
 		 catalog.remove(book);
 		 member.addBorrowedBook(book);
-		 System.out.println(memberName + " has successfully borrowed " + bookName);
-		 
-		 
-//	     if (members.containsKey(memberName)) {
-//	         System.out.println("Member " + memberName + " not found.");
-//	         return;
-//	     }
-//
-//	     if (catalog.contains(bookName)) {
-//	         catalog.remove(bookName);
-//	         //memberBorrowedBooks.get(memberName).add(availableBooks.get(availableBooks.indexOf(bookName)));
-//	         Member m = new Member(memberName);
-//	         Book b = new Book(bookName);
-//	         m.addBorrowedBook(b);
-//	         List borrowedBooks = m.getBorrowedBooks();
-//	         memberBorrowedBooks.put(m, borrowedBooks);
-//	         System.out.println(memberName + " has successfully borrowed " + bookName);
-//	     } else {
-//	         System.out.println(bookName + " is either already borrowed or not available.");
-//	     }
+		 System.out.println(member.getName() + " has successfully borrowed " + book.getName());
 	 }
 	 
-	 public void returnBook(String bookName, String memberName) {
-		 boolean isNewMember = true;
-		 boolean bookReturned = false;
-		 Member memeber;
-		 for (Member m : members) {
-			 if (m.getName() == memberName) { //TODO Possibly check memberID instead? can 2 members have the same name?
-				 //Member is already apart of the library
-				 isNewMember = false;
-				 member = m;
-				 break;
-			 }
-		 }
-		 
-		 if (isNewMember) {
-			 //Member is not a registered member of the Library
-			 System.out.println("Member " + memberName + " not found.");
+	 public void returnBook(Book book, Member member) {
+		 if (!members.contains(member)) {
+			//Member is not a registered member of the Library
+			 System.out.println("Member " + member.getName() + " not found.");
 			 return;
 		 }
 		 
-		 //Look through the member's borrowed books to find a match
-		 for (Book b : member.getBorrowedBooks()) {
-			 if (b.getName == bookName) {
-				 //Match found
-				 member.removeBorrowedBook(b);
-				 catalog.add(b);
-				 bookReturned = true;
-				 System.out.println(memberName + " has successfully returned " + bookName);
-				 break;
-			 }
-		 }
-		 
-		 if (!bookReturned) {
-			 System.out.println(bookName + " is not being borrowed by " + memberName);
+		 if (member.getBorrowedBooks().contains(book)) {
+			 member.removeBorrowedBook(book);
+			 catalog.add(book);
+			 System.out.println(member.getName() + " has successfully returned " + book.getName());
+		 }else {
+			 System.out.println(book.getName() + " is not being borrowed by " + member.getName());
 			 return;
 		 }
 		 
@@ -179,6 +107,27 @@ public class Library {
 //	         availableBooks.add(b);
 //	         System.out.println(memberName + " has successfully returned " + bookName);
 //	     }
+	 }
+	 
+	 //Returns the first member of matching memberName in the library, else if no members with this name exist returns new Member
+	 public Member findMemberByName(String memberName) {
+		 for (Member m : members) {
+			 if (memberName == m.getName()) {
+				 return m;
+			 }
+		 }
+		 //System.out.println("Error: " + memberName + "is not a registered member of this Library");
+		 return new Member(memberName);
+	 }
+	 //Returns the first book of matching bookName in the catalog, else if no book with this name exists returns new Book
+	 public Book findBookByName(String bookName) {
+		 for (Book b : catalog) {
+			 if (bookName == b.getName()) {
+				 return b;
+			 }
+		 }
+		 //System.out.println("Error: " + bookName + "is not an available book of this Library");
+		 return new Book(bookName);
 	 }
 
 }
