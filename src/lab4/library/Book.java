@@ -1,3 +1,5 @@
+package lab4.library;
+
 import java.util.Objects;
 
 public class Book {
