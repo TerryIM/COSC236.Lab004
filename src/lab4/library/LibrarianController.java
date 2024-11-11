@@ -1,5 +1,6 @@
 package lab4.library;
 
+
 public class LibrarianController {
 
 	// GRASP Principle: Controller
@@ -7,7 +8,6 @@ public class LibrarianController {
 	// Delegates tasks to the appropriate objects.
 
 	// TODO: implement functionality of Member class
-	// Just testing
 	private Library library;
 
 	public LibrarianController(Library library) {
@@ -42,7 +42,7 @@ public class LibrarianController {
 	}
 
 	public void returnBook(String memberName, String bookTitle) {
-		library.findMemberByName(memberName).returnBook(library.findBookByTitle(bookTitle));
+		library.findMemberByName(memberName).returnBook(bookTitle);
 	}
 	public void showAvailableBooks() {
 		library.showAvailableBooks();

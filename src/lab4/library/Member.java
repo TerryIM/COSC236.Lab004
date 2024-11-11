@@ -1,5 +1,6 @@
 package lab4.library;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,7 +30,7 @@ public class Member {
 	}
 
 	// Return a book to the library
-	public void returnBook(Book book) {
+	public void returnBook(String book) {
 		library.returnBook(book, this);
 	}
 

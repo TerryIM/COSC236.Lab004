@@ -1,12 +1,11 @@
 package lab4.library;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-//import lab4.library.Book;
 
 public class Library {
 
@@ -48,16 +47,16 @@ public class Library {
 	public void removeBook(Book book) {
 		if (availableBooks.contains(book)) {
 			availableBooks.remove(book);
-			System.out.println("'" + book.getTitle() + "' has been successfully removed.");
+			System.out.println("Book '" + book.getTitle() + "' has been successfully removed.");
 		} else {
-			System.out.println("'" + book.getTitle() + "' could not be found in the list");
+			System.out.println("Book '" + book.getTitle() + "' could not be found in the list");
 		}
 	}
 
 	// Adds a new member to the library (without a separate class)
 	public void addMember(Member member) {
 		// Search for member in the library
-		if (memberBorrowedBooks.containsKey(member)) {
+		if (!(memberExists(member))) {
 			// Member is already apart of the library
 			System.out.println("Member '" + member.getName() + "' already exists.");
 		} else {
@@ -73,7 +72,7 @@ public class Library {
 			Map.Entry<Member, List<Book>> entry = iterator.next();
 			if (entry.getKey().getName().equals(member.getName())) {
 				iterator.remove();
-				System.out.println("'" + member.getName() + "' has been successfully removed");
+				System.out.println("Member '" + member.getName() + "' has been successfully removed");
 				return;
 			}
 		}
@@ -83,7 +82,7 @@ public class Library {
 	// Borrow a book from the library
 	public void borrowBook(Book book, Member member) {
 		// Check if member exists in the Library
-		if (!(memberBorrowedBooks.containsKey(member))) {
+		if (memberExists(member)) {
 			// Member is not a registered member of the Library
 			// System.out.println(memberBorrowedBooks.toString());
 			System.out.println("Member '" + member.getName() + "' not found.");
@@ -102,18 +101,25 @@ public class Library {
 		System.out.println("'" + member.getName() + "' has successfully borrowed the book '" + book.getTitle() + "'.");
 	}
 
-	public void returnBook(Book book, Member member) {
+	public boolean memberExists(Member member) {
 		if (!(memberBorrowedBooks.containsKey(member))) {
+			return true;
+		} else
+			return false;
+	}
+
+	public void returnBook(String book, Member member) {
+		if (memberExists(member)) {
 			// Member is not a registered member of the Library
 			System.out.println("Member '" + member.getName() + "' not found.");
 			return;
 		}
-		member.listBorrowedBooks();
-		if (member.getBorrowedBooks().contains(book)) {
-			member.removeBorrowedBook(book);
-			availableBooks.add(book);
+		Book book2 = new Book(book);
+		if (member.getBorrowedBooks().contains(book2)) {
+			member.removeBorrowedBook(book2);
+			availableBooks.add(book2);
 			System.out
-					.println("'" + member.getName() + "' has successfully returned the book '" + book.getTitle() + "'");
+					.println("'" + member.getName() + "' has successfully returned the book '" + book2.getTitle() + "'");
 		} else {
 			System.out.println("This book is not being borrowed by '" + member.getName() + "'.");
 		}
